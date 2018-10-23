@@ -22,4 +22,5 @@ $ python example/test_rir.py
 ## References
 
 [1]	E. Lehmann and A. Johansson, Prediction of energy decay in room impulse responses simulated with an image-source model, Journal of the Acoustical Society of America, vol. 124(1), pp. 269-277, July 2008.
+
 [2]	E. Lehmann, A. Johansson, and S. Nordholm, Reverberation-time prediction method for room impulse responses simulated with the image-source model, Proceedings of the IEEE Workshop on Applications of Signal Processing to Audio and Acoustics (WASPAA'07), pp. 159-162, New Paltz, NY, USA, October 2007.
