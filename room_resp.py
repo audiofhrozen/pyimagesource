@@ -175,8 +175,7 @@ def Check_nDim(a, b, d, l, m, X_rcv, X_src, Rr, c, MaxDelay, beta, Fs):
     global TimePoints
     FoundNValBelowLim = 0
     n = 1                       # Check delay values for n=1 and above
-    dist = np.linalg.norm([2 * a - 1, 2 * b - 1, 2 * d - 1] * X_src +
-                          X_rcv - Rr * [n, l, m])
+    dist = np.linalg.norm([2 * a - 1, 2 * b - 1, 2 * d - 1] * X_src + X_rcv - Rr * [n, l, m])
     foo_time = dist / c
     while foo_time <= MaxDelay:       # if delay is below TF length limit for n=1, check n=2,3,4...
         foo_amplitude = np.prod(beta ** np.abs([n - a, n, l - b, l, m - d, m])) / (4 * np.pi * dist)
@@ -203,27 +202,27 @@ def Check_nDim(a, b, d, l, m, X_rcv, X_src, Rr, c, MaxDelay, beta, Fs):
 
 def Check_lDim(a, b, d, m, X_rcv, X_src, Rr, c, MaxDelay, beta, Fs):
     FoundLValBelowLim = 0
-    l = 1                       # Check delay values for l=1 and above
-    FoundNValBelowLim = Check_nDim(a, b, d, l, m, X_rcv, X_src,
+    ld = 1                       # Check delay values for l=1 and above
+    FoundNValBelowLim = Check_nDim(a, b, d, ld, m, X_rcv, X_src,
                                    Rr, c, MaxDelay, beta, Fs)
 
     while FoundNValBelowLim == 1:
-        l += 1
-        FoundNValBelowLim = Check_nDim(a, b, d, l, m, X_rcv, X_src,
+        ld += 1
+        FoundNValBelowLim = Check_nDim(a, b, d, ld, m, X_rcv, X_src,
                                        Rr, c, MaxDelay, beta, Fs)
 
-    if l != 1:
+    if ld != 1:
         FoundLValBelowLim = 1
 
-    l = 0                       # Check delay values for l=0 and below
-    FoundNValBelowLim = Check_nDim(a, b, d, l,
+    ld = 0                       # Check delay values for l=0 and below
+    FoundNValBelowLim = Check_nDim(a, b, d, ld,
                                    m, X_rcv, X_src, Rr, c, MaxDelay, beta, Fs)
     while FoundNValBelowLim == 1:
-        l -= 1
-        FoundNValBelowLim = Check_nDim(a, b, d, l,
+        ld -= 1
+        FoundNValBelowLim = Check_nDim(a, b, d, ld,
                                        m, X_rcv, X_src, Rr, c, MaxDelay, beta, Fs)
 
-    if l != 0:
+    if ld != 0:
         FoundLValBelowLim = 1
     return FoundLValBelowLim
 

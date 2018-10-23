@@ -18,6 +18,16 @@ $ python example/test_rir.py
 
 - numpy
 - scipy
+- pathos (Optional): Parallel processing.
+
+## Benchmark:
+Time evaluated for a 3-microphones array (in seconds):
+
+| Language |  T60<br>(Reveb. 200ms) | T60<br>(Reveb. 800ms) | T20<br>(Reveb. 200ms) |
+| --- | --- | --- | ---- |
+| Matlab | 5 | 900 | 774 |
+| Python (no pool) | 7 | 600 | 276 | 
+| Python (3 cpus) | 6 | 360 | 166 | 
 
 ## References
 

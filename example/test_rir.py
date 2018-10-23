@@ -22,7 +22,7 @@ def main():
     wavdata, samplerate = soundfile.read('thriller.wav')
     # sounddevice.play(wavdata, samplerate)
     # Room Dimensions in X, Y, Z (m)
-    rir_file = 'test_rir.npy'
+    rir_file = 'test_rir_np23.npy'
     my_room = np.asarray([[3, 4, 2.5]])
 
     # Mic positions in X, Y, Z (m)
@@ -35,11 +35,12 @@ def main():
         # Generates RIR and saves it
 
         
-        my_rev = [60, 0.2]
-        # my_rev = [20, 0.15]
+        my_rev = [60, 0.8]
+        my_rev = [20, 0.15]
         my_weights = np.asarray([[0.6, 0.9, 0.5, 0.6, 1.0, 0.8]])
         my_rir = ism_rir.Room_Impulse_Response(samplerate, my_room, my_mics, 
-                                               my_sources, my_rev, my_weights, verbose=True)
+                                               my_sources, my_rev, my_weights, verbose=True,
+                                               processes=3)
 
         rirs = my_rir.bank()
         np.save(rir_file, rirs)
@@ -58,7 +59,7 @@ def main():
     ax.set_zlabel('Z axis (m)')
     ax.legend()
     reverberated = ism_rir.audiodata(rirs, wavdata)
-    print(wavdata.shape)
+
     plt.figure()
     plt.plot(reverberated.T)
     # plt.show()

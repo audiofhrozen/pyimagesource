@@ -210,7 +210,25 @@ class Room_Impulse_Response(object):
         logging.info('Computing room impulse responses. ')
         mics_range = range(nMics)
         if self.processes > 1:
-            pass
+            from pathos.multiprocessing import ProcessingPool as Pool
+            this_map = Pool(node=self.processes).map
+            X_src = (self.mic_pos[mm, :] for mm in mics_range for tt in range(nSPts))
+            X_rcv = (self.source_trajectory[tt, :] for mm in mics_range for tt in range(nSPts))
+            m_freq = (self.sampling_freq for mm in mics_range for tt in range(nSPts))
+            m_beta = (beta for mm in mics_range for tt in range(nSPts))
+            m_rttype = (rttype for mm in mics_range for tt in range(nSPts))
+            m_rtval = (rtval for mm in mics_range for tt in range(nSPts))
+            m_room = (self.room for mm in mics_range for tt in range(nSPts))
+            m_c = (self.c for mm in mics_range for tt in range(nSPts))
+            m_Delta_dB = (Delta_dB for mm in mics_range for tt in range(nSPts))
+            imps = this_map(ISM_RoomResp, m_freq,
+                            m_beta, m_rttype, m_rtval,
+                            X_src, X_rcv, m_room,
+                            m_c, m_Delta_dB)
+            for mm in mics_range:
+                for tt in range(nSPts):
+                    RIR_cell[mm, tt] = imps[mm * nSPts + tt]
+            logging.info('Room impulse responses completed. ')
         else:
             if self.verbose:
                 from tqdm import tqdm

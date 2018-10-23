@@ -430,18 +430,18 @@ def AbsCoeff(rttype, rt, room, weight, method, c=None, xtol=1e-05):
         raise ValueError('Unrecognised ''METHOD'' parameter (see help for a list of accepted methods).')
 
     if out < 0.0001 + 3 * xtol:
-        logging.warning('Some absorption coefficients are close to the allowable limits (alpha->0). The \n' +
-                        'resulting reverberation time might end up lower than desired for the given environmental \n' +
-                        'setup. Try to relax some environmental constraints so that the desired reverberation time \n' +
-                        'is physically achievable (e.g., by increasing the room volume, increasing the maximum gap \n' +
-                        'between the absorption weights, or decreasing the desired RT value).')
+        logging.warning("""Some absorption coefficients are close to the allowable limits (alpha->0). The \n
+                        resulting reverberation time might end up lower than desired for the given environmental \n
+                        setup. Try to relax some environmental constraints so that the desired reverberation time \n'
+                        is physically achievable (e.g., by increasing the room volume, increasing the maximum gap \n'
+                        between the absorption weights, or decreasing the desired RT value).""")
         raise ValueError('out of tolerance')
     elif out > 0.9999 - 3 * xtol:
-        logging.warning('Some absorption coefficients are close to the allowable limits (alpha->1). The \n' +
-                        'resulting reverberation time might end up higher than desired for the given environmental \n' +
-                        'setup. Try to relax some environmental constraints so that the desired reverberation time \n' +
-                        'is physically achievable (e.g., by reducing the room volume, reducing the maximum gap \n' +
-                        'between the absorption weights, or increasing the desired RT value).')
+        logging.warning("""Some absorption coefficients are close to the allowable limits (alpha->1). The \n
+                        resulting reverberation time might end up higher than desired for the given environmental \n
+                        setup. Try to relax some environmental constraints so that the desired reverberation time \n
+                        is physically achievable (e.g., by reducing the room volume, reducing the maximum gap \n
+                        between the absorption weights, or increasing the desired RT value).'""")
         raise ValueError('out of tolerance')
     out = weight * out
     return out
