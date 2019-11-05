@@ -1,14 +1,14 @@
-# ism_rir
-[![Build Status](https://travis-ci.com/Fhrozen/ism_rir.svg?branch=master)](https://travis-ci.com/Fhrozen/ism_rir)
+# PyImageSource
+[![Build Status](https://travis-ci.com/Fhrozen/pyimagesource.svg?branch=master)](https://travis-ci.com/Fhrozen/pyimagesource)
 
 Image-source method for room acoustics
 
 This code is a transcription for python. The original work for matlab is found at [Lehmann's main page](http://www.eric-lehmann.com/).
 
 ## Example
-Execute `test_rir.py` found in the example folder
+Execute `test_rir.py` found in the test folder
 ```sh
-$ python example/test_rir.py
+$ python test/test_rir.py
 ```
 
 ## ToDo:
