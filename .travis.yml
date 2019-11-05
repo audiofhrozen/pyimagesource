@@ -7,15 +7,14 @@ cache:
 matrix:
   include:
     - os: linux
-      python: "2.7"
-    - os: linux
       python: "3.6"
 
 script:
-  - flake8
+  - ./test/test_rir.py
+  - flake8 pyimagesource
 
 install:
   - pip install -U pip wheel
-  - pip install -r ./tools/requirements_test.txt
+  - pip install -e .[test]
 
 sudo: false

@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ism_rir.abscoeff import AbsCoeff
-from ism_rir.room_resp import ISM_RoomResp
+from pyimagesource.abscoeff import AbsCoeff
+from pyimagesource.room_resp import ISM_RoomResp
+
 import logging
 import numpy as np
 

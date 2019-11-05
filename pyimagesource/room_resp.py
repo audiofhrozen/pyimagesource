@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ism_rir.abscoeff import ISM_RIRpow_approx
+from pyimagesource.abscoeff import ISM_RIRpow_approx
 import logging  # NOQA
 import numpy as np
 
@@ -78,9 +78,9 @@ def ISM_RIR_DecayTime(delta_dB_vec, rt_type, rt_val, aa, room, X_src, X_rcv, Fs,
         raise ValueError('ISM_RIR_DecayTime cannot be used for anechoic environments.')
 
     if rt_type == 60:
-            t60_appval = rt_val
+        t60_appval = rt_val
     elif rt_type == 20:
-            t60_appval = rt_val * 3       # coarse t60 estimate to determnine end time in EDCapprox computations
+        t60_appval = rt_val * 3       # coarse t60 estimate to determnine end time in EDCapprox computations
     else:
         raise ValueError('Unknown ''RT_TYPE'' argument.')
 

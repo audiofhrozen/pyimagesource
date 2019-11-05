@@ -1,28 +1,19 @@
-#!/usr/bin/python
-import warnings
-try:
-    warnings.filterwarnings('ignore')
-except Exception as e:
-    raise e
+#!/usr/bin/env python3
+
 import sys
 
-sys.path.append('../../')
-
-import h5py
-import ism_rir
+import pyimagesource
 import numpy as np
 import soundfile
-import sounddevice
 
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 
 def main():
-    wavdata, samplerate = soundfile.read('thriller.wav')
-    # sounddevice.play(wavdata, samplerate)
+    wavdata, samplerate = soundfile.read('./test/thriller.wav')
     # Room Dimensions in X, Y, Z (m)
-    rir_file = 'test_rir_np23.npy'
+    rir_file = './test/test_rir_np23.npy'
     my_room = np.asarray([[3, 4, 2.5]])
 
     # Mic positions in X, Y, Z (m)
@@ -33,12 +24,10 @@ def main():
 
     if True:
         # Generates RIR and saves it
-
-        
-        my_rev = [60, 0.8]
-        my_rev = [20, 0.15]
+        my_rev = [60, 0.4]
+        # my_rev = [20, 0.15]
         my_weights = np.asarray([[0.6, 0.9, 0.5, 0.6, 1.0, 0.8]])
-        my_rir = ism_rir.Room_Impulse_Response(samplerate, my_room, my_mics, 
+        my_rir = pyimagesource.Room_Impulse_Response(samplerate, my_room, my_mics, 
                                                my_sources, my_rev, my_weights, verbose=True,
                                                processes=3)
 
@@ -58,12 +47,13 @@ def main():
     ax.set_ylabel('Y axis (m)')
     ax.set_zlabel('Z axis (m)')
     ax.legend()
-    reverberated = ism_rir.audiodata(rirs, wavdata)
+    reverberated = pyimagesource.audiodata(rirs, wavdata)
 
     plt.figure()
     plt.plot(reverberated.T)
+    plt.savefig('./test/reverberated.png')
     # plt.show()
-    soundfile.write('test_thriller.wav', reverberated.T, samplerate)
+    soundfile.write('./test/test_thriller.wav', reverberated.T, samplerate)
 
 
 if __name__ == '__main__':
