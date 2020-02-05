@@ -27,6 +27,14 @@ def main():
         my_rev = [60, 0.4]
         # my_rev = [20, 0.15]
         my_weights = np.asarray([[0.6, 0.9, 0.5, 0.6, 1.0, 0.8]])
+        print("Evaluating Anechoic ir")
+        my_rir = pyimagesource.Room_Impulse_Response(samplerate, my_room, my_mics, 
+                                               my_sources, [60, 0.0], my_weights, verbose=True,
+                                               processes=3)
+
+        rirs = my_rir.bank()
+
+        print("Evaluating Echoic ir")
         my_rir = pyimagesource.Room_Impulse_Response(samplerate, my_room, my_mics, 
                                                my_sources, my_rev, my_weights, verbose=True,
                                                processes=3)

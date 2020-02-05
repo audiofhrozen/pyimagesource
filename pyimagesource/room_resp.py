@@ -350,7 +350,7 @@ def ISM_RoomResp(Fs, beta, rt_type, rt_val, X_src, X_rcv, room, c=343., Delta_dB
         if MaxDelay is None:          # Delta_dB (using Lehmann & Johansson's EDC approximation method)
             MaxDelay = ISM_RIR_DecayTime(Delta_dB, rt_type, rt_val, 1 - beta ** 2, room, X_src, X_rcv, Fs, c)
     else:                               # Anechoic case: allow for 5 times direct path in TF
-        DPdel = np.norm(X_rcv - X_src) / c  # direct path delay in [s]
+        DPdel = np.linalg.norm(X_rcv - X_src) / c  # direct path delay in [s]
         MaxDelay = 5 * DPdel
         beta = np.zeros((6,))		# in case rt_val=0 only
     TForder = int(np.ceil(MaxDelay * Fs))       # total length of RIR [samp] to reach Delta_dB
